@@ -1,0 +1,24 @@
+name: Run lint on any Push event
+# Запуск при любом push евенте в любой ветке
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  run_lint:
+    runs-on: [ubuntu-latest]
+    steps:
+      # Чекаутим код
+      - uses: actions/checkout@master
+      # Устанавливаем python нужной версии
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+      - name: Install requirements
+        # Устанавливаем зависимости
+        run: pip install -r requirements.txt
+      - name: Install flake8
+        run: pip3 install flake8
+      - name: Run flake8
+        run: flake8 .
