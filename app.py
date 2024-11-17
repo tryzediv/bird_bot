@@ -19,7 +19,6 @@ for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW:
         if event.to_me:
             request = event.text.lower()
-            # request = request.lower()
 
             if request == '123':
                 write_msg(event.user_id, 'Я знаю команды: привет, пока')
@@ -27,5 +26,3 @@ for event in longpoll.listen():
                 write_msg(event.user_id, 'ку)')
             elif request == 'пока':
                 write_msg(event.user_id, 'поки(')
-            # else:
-            #     write_msg(event.user_id, 'Я не поняв...')
