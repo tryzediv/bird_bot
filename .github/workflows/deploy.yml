@@ -15,4 +15,4 @@ jobs:
       - name: build
       - run: docker build -t bird_bot
       - name: deploy
-      - run: docker run bird_bot
+      - run: docker run -d --restart unless-stopped bird_bot
