@@ -40,7 +40,7 @@ for event in longpoll.listen():
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
 
-            if message_text == 'помощь':
+            if message_text in ['/help', '/помощь', '/бот']:
                 write_msg(chat_id, HELP)
             elif message_text == '/1':
                 write_msg(chat_id, FIRST_TIME)
