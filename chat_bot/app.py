@@ -3,6 +3,9 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
 from text import *
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Авторизуемся с помощью токена сообщества
 vk = vk_api.VkApi(token=TOKEN)
@@ -35,11 +38,14 @@ def send_goodbye_message(chat_id, user_id):
 
 # Основной цикл бота
 for event in longpoll.listen():
-    print('Бот запущен')
     if event.type == VkBotEventType.MESSAGE_NEW:
+        logging.info(f"event.type: {event.type}")
+        print(f"event.type: {event.type}")
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
+            logging.info(f"message_text: {message_text}")
+            print(f"message_text: {message_text}")
 
             if message_text in ['/help', '/помощь', '/бот']:
                 write_msg(chat_id, HELP)
@@ -66,6 +72,7 @@ for event in longpoll.listen():
 
             if 'action' in event.object.message:
                 action = event.object.message['action']
+                logging.info(f"Action: {action}")
                 print(f"Action: {action}")  # Отладочное сообщение
                 if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link',
                                       'invite_user_by_link', 'invite_user']:
