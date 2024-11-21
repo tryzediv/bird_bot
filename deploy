@@ -1,0 +1,15 @@
+#!/bin/bash
+git checkout production
+git pull
+cd chat_bot
+docker build -t swifts-chat-bot .
+docker tag swifts-chat-bot tryzediv/swifts-chat-bot:latest
+docker push tryzediv/swifts-chat-bot:latest
+
+cd ../group_bot
+docker build -t swifts-group-bot .
+docker tag swifts-group-bot tryzediv/swifts-group-bot:latest
+docker push tryzediv/swifts-group-bot:latest
+
+cd ../
+docker-compose up -d
