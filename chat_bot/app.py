@@ -21,7 +21,7 @@ def write_msg(chat_id, message):
 def send_welcome_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
     user_name = user_info['first_name']
-    message = (f'{user_name} Добро пожаловать в наше гнездо! '
+    message = (f'{user_name}, добро пожаловать в наше гнездышко ^_^ '
                f'Я знаю команды: помоги, птица, ежик')
     write_msg(chat_id, message)
 
