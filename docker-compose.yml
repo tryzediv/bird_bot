@@ -13,3 +13,4 @@ services:
     container_name: swifts-group-bot
     volumes:
       - ./swifts-group-bot:/app
+    restart: always
