@@ -2,6 +2,7 @@ import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
+from text import *
 
 # Авторизуемся с помощью токена сообщества
 vk = vk_api.VkApi(token=TOKEN)
@@ -21,8 +22,7 @@ def write_msg(chat_id, message):
 def send_welcome_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
     user_name = user_info['first_name']
-    message = (f'{user_name}, добро пожаловать в наше гнездышко ^_^ '
-               f'Я знаю команды: помоги, птица, ежик')
+    message = (f'Добрый день {user_name}! ' + HELLO)
     write_msg(chat_id, message)
 
 
@@ -40,10 +40,20 @@ for event in longpoll.listen():
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
 
-            if message_text == 'помоги':
-                write_msg(chat_id, 'Я знаю команды: помоги, птица, ежик')
-            elif message_text == 'птица':
-                write_msg(chat_id, 'кукушка')
+            if message_text == 'помощь':
+                write_msg(chat_id, HELP)
+            elif message_text == '/1':
+                write_msg(chat_id, FIRST_TIME)
+            elif message_text == '/2':
+                write_msg(chat_id, FEED)
+            elif message_text == '/3':
+                write_msg(chat_id, BUGS)
+            elif message_text == '/4':
+                write_msg(chat_id, HOW_TO_FEED)
+            elif message_text == '/5':
+                write_msg(chat_id, TIAMIN)
+            elif message_text == '/6':
+                write_msg(chat_id, GROUP_LIB)
             elif message_text == 'ежик':
                 write_msg(chat_id, 'По вечерам Ёжик ходил к Медвежонку '
                                    'считать звёзды. Они усаживались на '
