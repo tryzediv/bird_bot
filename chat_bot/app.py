@@ -35,6 +35,7 @@ def send_goodbye_message(chat_id, user_id):
 
 # Основной цикл бота
 for event in longpoll.listen():
+    print('Бот запущен')
     if event.type == VkBotEventType.MESSAGE_NEW:
         if event.from_chat:
             chat_id = event.chat_id
