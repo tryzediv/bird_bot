@@ -55,13 +55,11 @@ for event in longpoll.listen():
 
             if 'action' in event.object.message:
                 action = event.object.message['action']
-                if action['type'] == 'chat_invite_user' or action['type'] == 'chat_join':
+                if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link']:
                     user_id = action['member_id']
                     send_welcome_message(chat_id, user_id)
-                elif action['type'] == 'chat_kick_user' or action['type'] == 'chat_kick':
+                elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link']:
                     user_id = action['member_id']
                     send_goodbye_message(chat_id, user_id)
-                elif action['type'] == 'photo_new':
-                    user_id = action['member_id']
-                    write_msg(chat_id, 'Чик чирик, крутая фотка)')
-
+                elif action['type'] == 'chat_photo_update':
+                    write_msg(chat_id, 'Чик чирик, крутая фотка =)')
