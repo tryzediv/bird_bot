@@ -65,6 +65,7 @@ for event in longpoll.listen():
 
             if 'action' in event.object.message:
                 action = event.object.message['action']
+                print(f"Action: {action}")  # Отладочное сообщение
                 if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link',
                                       'invite_user_by_link', 'invite_user']:
                     user_id = action['member_id']
