@@ -65,10 +65,12 @@ for event in longpoll.listen():
 
             if 'action' in event.object.message:
                 action = event.object.message['action']
-                if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link']:
+                if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link',
+                                      'invite_user_by_link', 'invite_user']:
                     user_id = action['member_id']
                     send_welcome_message(chat_id, user_id)
-                elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link']:
+                elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link',
+                                        'kick_user', 'kick_user_by_link']:
                     user_id = action['member_id']
                     send_goodbye_message(chat_id, user_id)
                 elif action['type'] == 'chat_photo_update':
