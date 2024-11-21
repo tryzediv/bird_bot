@@ -7,7 +7,7 @@ services:
     image: tryzediv/swifts-chat-bot:latest
     container_name: swifts-chat-bot
     volumes:
-      - ./chat_bot:/app
+      - ./chat_bot
     restart: always
 
   swifts-group-bot:
@@ -16,5 +16,5 @@ services:
     image: tryzediv/swifts-group-bot:latest
     container_name: swifts-group-bot
     volumes:
-      - ./group_bot:/app
+      - ./group_bot
     restart: always
