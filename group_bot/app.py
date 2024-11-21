@@ -22,8 +22,8 @@ for event in longpoll.listen():
         if event.to_me:
             request = event.text.lower()
 
-            if request == '123':
-                write_msg(event.user_id, 'Я знаю команды: привет, пока')
+            if request == 'бот' or 'помоги':
+                write_msg(event.user_id, 'Я знаю команды: привет, пока, лошадка')
             elif request == 'привет':
                 write_msg(event.user_id, 'ку)')
             elif request == 'пока':
