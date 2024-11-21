@@ -7,14 +7,14 @@ services:
     image: tryzediv/swifts-chat-bot:latest
     container_name: swifts-chat-bot
     volumes:
-      - ./chat_bot
+      - ./chat_bot:/app
     restart: always
 
-  swifts-group-bot:
-    build:
-      context: ./group_bot
-    image: tryzediv/swifts-group-bot:latest
-    container_name: swifts-group-bot
-    volumes:
-      - ./group_bot
-    restart: always
+#  swifts-group-bot:
+#    build:
+#      context: ./group_bot
+#    image: tryzediv/swifts-group-bot:latest
+#    container_name: swifts-group-bot
+#    volumes:
+#      - ./group_bot:/app
+#    restart: always
