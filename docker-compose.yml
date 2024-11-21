@@ -1,16 +1,16 @@
-version: '3'
+version: '1'
 services:
   swifts-chat-bot:
     build: ./chat_bot
     image: tryzediv/swifts-chat-bot:latest
     container_name: swifts-chat-bot
-#    volumes:
-#      - ./chat_bot:/app
+    volumes:
+      - ./chat_bot:/app
     restart: always
   swifts-group-bot:
     build: ./group_bot
     image: tryzediv/swifts-group-bot:latest
     container_name: swifts-group-bot
-#    volumes:
-#      - ./group_bot:/app
+    volumes:
+      - ./group_bot:/app
     restart: always
