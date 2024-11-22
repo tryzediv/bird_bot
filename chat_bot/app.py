@@ -3,8 +3,11 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
 from text import *
+import logging
+import random
 
-# Авторизуемся с помощью токена сообщества
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 vk = vk_api.VkApi(token=TOKEN)
 vk_api = vk.get_api()
 longpoll = VkBotLongPoll(vk, GROUP_ID)
@@ -26,6 +29,7 @@ def send_welcome_message(chat_id, user_id):
     write_msg(chat_id, message)
 
 
+# Функция для отправки прощального сообщения
 def send_goodbye_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
     user_name = user_info['first_name']
@@ -39,7 +43,20 @@ for event in longpoll.listen():
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
-
+            # Следим за действиями юзеров
+            if 'action' in event.object.message:
+                action = event.object.message['action']
+                if action['type'] == 'chat_invite_user' \
+                        or action['type'] == 'chat_invite_user_by_link':
+                    user_id = action['member_id']
+                    send_welcome_message(chat_id, user_id)
+                elif action['type'] == 'chat_kick_user' \
+                        or action['type'] == 'chat_kick_user_by_link':
+                    user_id = action['member_id']
+                    send_goodbye_message(chat_id, user_id)
+                elif action['type'] == 'chat_photo_update':
+                    write_msg(chat_id, 'Чик чирик, крутая фотка =)')
+            # Ответы бота
             if message_text in ['/help', '/помощь', '/бот']:
                 write_msg(chat_id, HELP)
             elif message_text == '/1':
@@ -62,14 +79,3 @@ for event in longpoll.listen():
                                    'крышей — прямо за печной трубой. Справа '
                                    'от трубы были звёзды Медвежонка, '
                                    'а слева — Ёжика…')
-
-            if 'action' in event.object.message:
-                action = event.object.message['action']
-                if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link']:
-                    user_id = action['member_id']
-                    send_welcome_message(chat_id, user_id)
-                elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link']:
-                    user_id = action['member_id']
-                    send_goodbye_message(chat_id, user_id)
-                elif action['type'] == 'chat_photo_update':
-                    write_msg(chat_id, 'Чик чирик, крутая фотка =)')
