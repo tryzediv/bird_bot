@@ -4,6 +4,7 @@ from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
 from text import *
 import logging
+import random
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -19,6 +20,16 @@ def write_msg(chat_id, message):
         message=message,
         random_id=get_random_id()
     )
+
+
+# Пробую приветствие
+def send_message(peer_id, message):
+    vk_api.messages.send(
+        peer_id=peer_id,
+        message=message,
+        random_id=random.randint(1, 1000000)
+    )
+# Конец
 
 
 # Функция для отправки приветственного сообщения
@@ -40,13 +51,15 @@ def send_goodbye_message(chat_id, user_id):
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         logging.info(f"event.type: {event.type}")
-        print(f"event.type: {event.type}")
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
-            logging.info(f"message_text: {message_text}")
-            print(f"message_text: {message_text}")
-
+            # Пробую приветствие
+            user_id = event.message['from_id']
+            user_info = vk_api.users.get(user_ids=user_id)[0]
+            user_name = user_info['first_name']
+            send_message(chat_id + 2000000000, f'Добрый день {user_name}! ' + HELLO)
+            # Конец
             if message_text in ['/help', '/помощь', '/бот']:
                 write_msg(chat_id, HELP)
             elif message_text == '/1':
@@ -73,7 +86,6 @@ for event in longpoll.listen():
             if 'action' in event.object.message:
                 action = event.object.message['action']
                 logging.info(f"Action: {action}")
-                print(f"Action: {action}")  # Отладочное сообщение
                 if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link',
                                       'invite_user_by_link', 'invite_user']:
                     user_id = action['member_id']
