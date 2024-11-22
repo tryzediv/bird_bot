@@ -71,12 +71,13 @@ for event in longpoll.listen():
                                    'а слева — Ёжика…')
 
             # Ловим action для действий в чате
-            if event.message['action'] \
-                    and event.message['action']['type'] \
-                    in ['chat_invite_user', 'chat_invite_user_by_link']:
-                send_welcome_message(chat_id)
-            # elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link']:
-            #     user_id = action['member_id']
-            #     send_goodbye_message(chat_id, user_id)
-            # elif action['type'] == 'chat_photo_update':
-            #     write_msg(chat_id, 'Чик чирик, крутая фотка =)')
+            if 'action' in event.object.message:
+                if event.message['action'] \
+                        and event.message['action']['type'] \
+                        in ['chat_invite_user', 'chat_invite_user_by_link']:
+                    send_welcome_message(chat_id)
+                # elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link']:
+                #     user_id = action['member_id']
+                #     send_goodbye_message(chat_id, user_id)
+                # elif action['type'] == 'chat_photo_update':
+                #     write_msg(chat_id, 'Чик чирик, крутая фотка =)')
