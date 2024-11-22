@@ -1,4 +1,0 @@
-TOKEN = 'vk1.a.T5mw5nMAKa6cNzevXWwR1MXtrO9C01UvocZVTKz85mZfc58CFmSCbIgX5mux340Zc7' \
-        'eULcQzJ5vTsX-sFy_Pf-Ro0b5boZfxWAPX4nju5h0xT3w1Ch4NhVWC4rFN6951pGUjXxCyswyUyq' \
-        'xDtBD0WatWqDgRn1viy6h14gZy8k5kvOZRuV0qmhSFJiVRoy-yq7MLUJzDhsxDC7tX4JjdvQ'
-GROUP_ID = '228311047'
