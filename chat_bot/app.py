@@ -49,8 +49,8 @@ def send_goodbye_message(chat_id, user_id):
 
 # Основной цикл бота
 for event in longpoll.listen():
+    logging.info(f"event.type: {event.type}")
     if event.type == VkBotEventType.MESSAGE_NEW:
-        logging.info(f"event.type: {event.type}")
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
