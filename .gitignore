@@ -1,5 +1,6 @@
 group_bot/env.py
 chat_bot/env.py
+env.py
 qap_env
 .idea
 __pycache__
