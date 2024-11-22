@@ -39,6 +39,7 @@ def send_goodbye_message(chat_id, user_id):
 for event in longpoll.listen():
     logging.info(f"event.type: {event.type}")
     logging.info(f"event.from_chat: {event.from_chat}")
+    logging.info(f"event: {event}")
     logging.info(f"event.object: {event.object}")
     logging.info(f"event.object.message: {event.object.message}")
 
