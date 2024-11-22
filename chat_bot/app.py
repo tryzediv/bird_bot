@@ -40,7 +40,7 @@ def send_goodbye_message(chat_id, user_id):
 # Основной цикл бота
 for event in longpoll.listen():
     logging.info(f"event.type: {event.type}")
-    logging.info(f"action: {event.object.message['action']}")
+    logging.info(f"action: {event.object.message}")
     logging.info(f"event.from_chat: {event.from_chat}")
     if event.type == VkBotEventType.MESSAGE_NEW:
         if event.from_chat:
