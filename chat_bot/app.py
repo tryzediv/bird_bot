@@ -22,16 +22,6 @@ def write_msg(chat_id, message):
     )
 
 
-# Пробую приветствие
-def send_message(peer_id, message):
-    vk_api.messages.send(
-        peer_id=peer_id,
-        message=message,
-        random_id=random.randint(1, 1000000)
-    )
-# Конец
-
-
 # Функция для отправки приветственного сообщения
 def send_welcome_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
@@ -50,16 +40,26 @@ def send_goodbye_message(chat_id, user_id):
 # Основной цикл бота
 for event in longpoll.listen():
     logging.info(f"event.type: {event.type}")
+    logging.info(f"action: {event.object.message['action']}")
+    logging.info(f"event.from_chat: {event.from_chat}")
     if event.type == VkBotEventType.MESSAGE_NEW:
         if event.from_chat:
+            logging.info(f"event.from_chat: {event.from_chat}")
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
-            # Пробую приветствие
-            user_id = event.message['from_id']
-            user_info = vk_api.users.get(user_ids=user_id)[0]
-            user_name = user_info['first_name']
-            send_message(chat_id + 2000000000, f'Добрый день {user_name}! ' + HELLO)
-            # Конец
+            action = event.object.message['action']
+            logging.info(f"Action: {action}")
+            if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link',
+                                  'invite_user_by_link', 'invite_user']:
+                user_id = action['member_id']
+                send_welcome_message(chat_id, user_id)
+            elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link',
+                                    'kick_user', 'kick_user_by_link']:
+                user_id = action['member_id']
+                send_goodbye_message(chat_id, user_id)
+            elif action['type'] == 'chat_photo_update':
+                write_msg(chat_id, 'Чик чирик, крутая фотка =)')
+
             if message_text in ['/help', '/помощь', '/бот']:
                 write_msg(chat_id, HELP)
             elif message_text == '/1':
@@ -82,17 +82,3 @@ for event in longpoll.listen():
                                    'крышей — прямо за печной трубой. Справа '
                                    'от трубы были звёзды Медвежонка, '
                                    'а слева — Ёжика…')
-
-            if 'action' in event.object.message:
-                action = event.object.message['action']
-                logging.info(f"Action: {action}")
-                if action['type'] in ['chat_invite_user', 'chat_invite_user_by_link',
-                                      'invite_user_by_link', 'invite_user']:
-                    user_id = action['member_id']
-                    send_welcome_message(chat_id, user_id)
-                elif action['type'] in ['chat_kick_user', 'chat_kick_user_by_link',
-                                        'kick_user', 'kick_user_by_link']:
-                    user_id = action['member_id']
-                    send_goodbye_message(chat_id, user_id)
-                elif action['type'] == 'chat_photo_update':
-                    write_msg(chat_id, 'Чик чирик, крутая фотка =)')
