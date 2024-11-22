@@ -8,7 +8,6 @@ import random
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Авторизуемся с помощью токена сообщества
 vk = vk_api.VkApi(token=TOKEN)
 vk_api = vk.get_api()
 longpoll = VkBotLongPoll(vk, GROUP_ID)
@@ -30,6 +29,7 @@ def send_welcome_message(chat_id, user_id):
     write_msg(chat_id, message)
 
 
+# Функция для отправки прощального сообщения
 def send_goodbye_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
     user_name = user_info['first_name']
@@ -39,16 +39,13 @@ def send_goodbye_message(chat_id, user_id):
 
 # Основной цикл бота
 for event in longpoll.listen():
-    logging.info(f"event.type: {event.type}")
-    logging.info(f"event.from_chat: {event.from_chat}")
-    logging.info(f"event.object.message: {event.object.message}")
     if event.type == VkBotEventType.MESSAGE_NEW:
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
+            # Следим за действиями юзеров
             if 'action' in event.object.message:
                 action = event.object.message['action']
-                logging.info(f"Action: {action}")
                 if action['type'] == 'chat_invite_user' \
                         or action['type'] == 'chat_invite_user_by_link':
                     user_id = action['member_id']
@@ -59,7 +56,7 @@ for event in longpoll.listen():
                     send_goodbye_message(chat_id, user_id)
                 elif action['type'] == 'chat_photo_update':
                     write_msg(chat_id, 'Чик чирик, крутая фотка =)')
-
+            # Ответы бота
             if message_text in ['/help', '/помощь', '/бот']:
                 write_msg(chat_id, HELP)
             elif message_text == '/1':
