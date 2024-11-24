@@ -2,9 +2,9 @@ import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
-from text import *
+from text import HELP, FIRST_TIME, FEED, \
+    BUGS, HOW_TO_FEED, TIAMIN, GROUP_LIB, HELLO
 import logging
-import random
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
