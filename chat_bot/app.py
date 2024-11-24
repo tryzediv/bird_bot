@@ -2,8 +2,7 @@ import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
-from text import HELP, FIRST_TIME, FEED, \
-    BUGS, HOW_TO_FEED, TIAMIN, GROUP_LIB, HELLO
+from text import responses
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,7 +24,7 @@ def write_msg(chat_id, message):
 def send_welcome_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
     user_name = user_info['first_name']
-    message = (f'Добрый день {user_name}! ' + HELLO)
+    message = (f'Добрый день {user_name}! ' + responses['HELLO'])
     write_msg(chat_id, message)
 
 
@@ -56,26 +55,7 @@ for event in longpoll.listen():
                     send_goodbye_message(chat_id, user_id)
                 elif action['type'] == 'chat_photo_update':
                     write_msg(chat_id, 'Чик чирик, крутая фотка =)')
-            # Ответы бота
-            if message_text in ['/help', '/помощь', '/бот']:
-                write_msg(chat_id, HELP)
-            elif message_text == '/1':
-                write_msg(chat_id, FIRST_TIME)
-            elif message_text == '/2':
-                write_msg(chat_id, FEED)
-            elif message_text == '/3':
-                write_msg(chat_id, BUGS)
-            elif message_text == '/4':
-                write_msg(chat_id, HOW_TO_FEED)
-            elif message_text == '/5':
-                write_msg(chat_id, TIAMIN)
-            elif message_text == '/6':
-                write_msg(chat_id, GROUP_LIB)
-            elif message_text == 'ежик':
-                write_msg(chat_id, 'По вечерам Ёжик ходил к Медвежонку '
-                                   'считать звёзды. Они усаживались на '
-                                   'брёвнышке и, прихлёбывая чай, смотрели '
-                                   'на звёздное небо. Оно висело над '
-                                   'крышей — прямо за печной трубой. Справа '
-                                   'от трубы были звёзды Медвежонка, '
-                                   'а слева — Ёжика…')
+            # Ответы бота, идём циклом по словарю
+            for key in responses:
+                if message_text == key:
+                    write_msg(chat_id, responses[key])
