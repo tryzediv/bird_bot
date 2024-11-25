@@ -21,8 +21,10 @@ def write_msg(chat_id, message):
 
 
 # Функция для отправки приветственного сообщения
-def send_welcome_message(chat_id):
-    message = (f'Добрый день! ' + responses['HELLO'])
+def send_welcome_message(chat_id, user_id):
+    user_info = vk_api.users.get(user_ids=user_id)[0]
+    user_name = user_info['first_name']
+    message = (f'Добрый день, {user_name}! ' + responses['HELLO'])
     write_msg(chat_id, message)
 
 
@@ -47,7 +49,8 @@ for event in longpoll.listen():
                 logging.info(f"Action: {action}")
                 if action['type'] == 'chat_invite_user_by_link' \
                         or action['type'] == 'chat_invite_user':
-                    send_welcome_message(chat_id)
+                    user_id = event.object.message['from_id']
+                    send_welcome_message(chat_id, user_id)
                 elif action['type'] == 'chat_kick_user' \
                         or action['type'] == 'chat_kick_user_by_link':
                     user_id = action['member_id']
