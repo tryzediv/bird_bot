@@ -47,8 +47,8 @@ for event in longpoll.listen():
             if 'action' in event.object.message:
                 action = event.object.message['action']
                 logging.info(f"Action: {action}")
-                if action['type'] == 'chat_invite_user' \
-                        or action['type'] == 'chat_invite_user_by_link':
+                if action['type'] == 'chat_invite_user_by_link' \
+                        or action['type'] == 'chat_invite_user':
                     user_id = action['member_id']
                     send_welcome_message(chat_id, user_id)
                 elif action['type'] == 'chat_kick_user' \
