@@ -38,6 +38,7 @@ def send_goodbye_message(chat_id, user_id):
 
 # Основной цикл бота
 for event in longpoll.listen():
+    logging.info(f"event.object.message: {event.object.message}")
     if event.type == VkBotEventType.MESSAGE_NEW:
         if event.from_chat:
             chat_id = event.chat_id
@@ -45,6 +46,7 @@ for event in longpoll.listen():
             # Следим за действиями юзеров
             if 'action' in event.object.message:
                 action = event.object.message['action']
+                logging.info(f"Action: {action}")
                 if action['type'] == 'chat_invite_user' \
                         or action['type'] == 'chat_invite_user_by_link':
                     user_id = action['member_id']
