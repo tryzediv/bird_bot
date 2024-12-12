@@ -9,7 +9,7 @@ jobs:
     runs-on: kharin
     steps:
       - name: Install python
-        run: apt-get install python3.9
+        run: apt-get -y install python3.9
       # Чекаутим код
       - uses: actions/checkout@master
       # Устанавливаем python нужной версии
