@@ -8,12 +8,14 @@ jobs:
   run_lint:
     runs-on: kharin
     steps:
+      - name: Install python
+        run: apt-get install python3.9
       # Чекаутим код
       - uses: actions/checkout@master
       # Устанавливаем python нужной версии
       - uses: actions/setup-python@v1
         with:
-          python-version: '3.2'
+          python-version: '3.9'
           architecture: 'x64'
       - name: Upgrade pip
         # Устанавливаем зависимости
