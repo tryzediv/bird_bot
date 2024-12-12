@@ -6,6 +6,7 @@ on:
       - '*'
 jobs:
   run_lint:
+  # Запускаем джобу на раннере по тегу
     runs-on: kharin
     steps:
       # Устанавливаем python нужной версии
