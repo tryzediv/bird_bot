@@ -13,6 +13,7 @@ jobs:
         run: apt-get -y install python3.9
       # Чекаутим код
       - uses: actions/checkout@master
+      - uses: actions/setup-python@v1
       - name: Upgrade pip
         # Устанавливаем зависимости
         run: pip install --upgrade pip
