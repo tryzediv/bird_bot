@@ -6,7 +6,7 @@ on:
       - '*'
 jobs:
   run_lint:
-    runs-on: [ubuntu-latest]
+    runs-on: self-hosted
     steps:
       # Чекаутим код
       - uses: actions/checkout@master
