@@ -6,7 +6,7 @@ on:
       - '*'
 jobs:
   run_lint:
-    runs-on: self-hosted
+    runs-on: myStudyRunner
     steps:
       # Чекаутим код
       - uses: actions/checkout@master
