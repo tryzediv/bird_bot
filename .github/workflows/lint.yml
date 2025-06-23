@@ -6,15 +6,17 @@ on:
       - '*'
 jobs:
   run_lint:
-    runs-on: [ubuntu-latest]
+  # Запускаем джобу на раннере по тегу
+    runs-on: ubuntu:latest
     steps:
+      # Устанавливаем python нужной версии
+      - name: Install python
+        run: apt-get -y install python3.9
       # Чекаутим код
       - uses: actions/checkout@master
-      # Устанавливаем python нужной версии
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: '3.9'
-          architecture: 'x64'
       - name: Upgrade pip
         # Устанавливаем зависимости
         run: pip install --upgrade pip
