@@ -7,7 +7,7 @@ on:
 jobs:
   run_lint:
   # Запускаем джобу на раннере по тегу
-    runs-on: ubuntu:latest
+    runs-on: [ubuntu-latest]
     steps:
       # Устанавливаем python нужной версии
       - name: Install python
