@@ -1,4 +1,5 @@
 import vk_api
+import re
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
@@ -43,6 +44,8 @@ for event in longpoll.listen():
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
+            # Убираем спец символы из строки
+            message_text = re.sub(r'[^\w\s]', '', message_text)
             # Следим за действиями юзеров
             if 'action' in event.object.message:
                 action = event.object.message['action']
