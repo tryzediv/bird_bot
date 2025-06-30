@@ -17,7 +17,7 @@ def create_carousel():
     keyboard.add_line()
     keyboard.add_button('Чем накормить стрижа', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
-    keyboard.add_button('Где в Тюмени купить насекомых', color=VkKeyboardColor.PRIMARY)
+    keyboard.add_button('Где купить насекомых', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
     keyboard.add_button('Способы кормления стрижа', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
