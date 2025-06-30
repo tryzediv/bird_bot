@@ -4,6 +4,8 @@ from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from vk_api.utils import get_random_id
 from text import responses
 from env import TOKEN
+from names import swift_names
+import random
 
 # Авторизуемся с помощью токена сообщества
 vk = vk_api.VkApi(token=TOKEN)
@@ -42,6 +44,9 @@ for event in longpoll.listen():
             user_id = event.user_id
             if text == 'старт':
                 write_msg(user_id, 'Выберите один из вариантов:', create_carousel())
+            if text == 'придумай имя для моего стрижа':
+                write_msg(user_id, f'Теперь Вашего стрижа зовут {random.choice(swift_names)}'
+                          , create_carousel())
 
             # Ответы бота, идём циклом по словарю
             for key in responses:
