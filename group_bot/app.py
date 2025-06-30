@@ -15,14 +15,13 @@ def create_carousel():
     keyboard = VkKeyboard(one_time=True)
     keyboard.add_button('Что сделать в первую очередь', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
-    keyboard.add_button('Чем накормить', color=VkKeyboardColor.PRIMARY)
-    keyboard.add_button('Способы кормления', color=VkKeyboardColor.PRIMARY)
+    keyboard.add_button('Чем накормить стрижа', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
-    keyboard.add_button('Где можно купить насекомых в Тюмени', color=VkKeyboardColor.PRIMARY)
+    keyboard.add_button('Где в Тюмени купить насекомых', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
-    keyboard.add_button('Зачем и как давать Тиамин. Обязательно!', color=VkKeyboardColor.PRIMARY)
+    keyboard.add_button('Способы кормления стрижа', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
-    keyboard.add_button('Остались вопросы?', color=VkKeyboardColor.PRIMARY)
+    keyboard.add_button('Витамины. Обязательно!', color=VkKeyboardColor.PRIMARY)
     return keyboard.get_keyboard()
 
 
