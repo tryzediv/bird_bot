@@ -22,6 +22,8 @@ def create_carousel():
     keyboard.add_button('Способы кормления стрижа', color=VkKeyboardColor.PRIMARY)
     keyboard.add_line()
     keyboard.add_button('Витамины. Обязательно!', color=VkKeyboardColor.PRIMARY)
+    keyboard.add_line()
+    keyboard.add_button('Придумай имя для моего стрижа', color=VkKeyboardColor.PRIMARY)
     return keyboard.get_keyboard()
 
 
