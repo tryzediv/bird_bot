@@ -1,4 +1,5 @@
 import vk_api
+import re
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
 from env import TOKEN, GROUP_ID
@@ -24,7 +25,7 @@ def write_msg(chat_id, message):
 def send_welcome_message(chat_id, user_id):
     user_info = vk_api.users.get(user_ids=user_id)[0]
     user_name = user_info['first_name']
-    message = (f'Добрый день, {user_name}! ' + responses['HELLO'])
+    message = (f'Чик чирик, {user_name}! ' + responses['HELLO'])
     write_msg(chat_id, message)
 
 
@@ -43,13 +44,15 @@ for event in longpoll.listen():
         if event.from_chat:
             chat_id = event.chat_id
             message_text = event.object.message['text'].lower()
+            # Убираем спец символы из строки
+            message_text = re.sub(r'[^\w\s]', '', message_text)
             # Следим за действиями юзеров
             if 'action' in event.object.message:
                 action = event.object.message['action']
                 logging.info(f"Action: {action}")
                 if action['type'] == 'chat_invite_user_by_link' \
                         or action['type'] == 'chat_invite_user':
-                    user_id = action['member_id']
+                    user_id = event.object.message['from_id']
                     send_welcome_message(chat_id, user_id)
                 elif action['type'] == 'chat_kick_user' \
                         or action['type'] == 'chat_kick_user_by_link':
